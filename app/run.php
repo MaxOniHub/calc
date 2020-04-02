@@ -8,33 +8,31 @@ require_once 'vendor/autoload.php';
 /** @var \app\src\Calculator $Calculator */
 $Calculator = CalculatorBuilder::build();
 
-
 /**
  *
- * >--------------------------------------------------------------<
- * | Demo of simple calculator (`+`, `-`, `/`, `*`)               |
- * >--------------------------------------------------------------<
+ * [-------------------------------------------------------------------------------------]
+ * | Demo of simple calculator (allowed operations: `+`, `-`, `/`, `*`)                  |
+ * ]-------------------------------------------------------------------------------------[
  *
  */
 
 /** @var IResult $result */
 $result = $Calculator->setOperand1(2)->setOperand2(100.23)->setOperator('-')->calculate();
 
-var_dump($result->getValue());
+print_r($result->getValue()."\n");
 
 /**
  *
- * [-----------------------------------------------------------------]
- * | Demo of engineering calculator (`sin`, `cos`, `abs`, `exp` etc) |
- * ]-----------------------------------------------------------------[
+ * [-------------------------------------------------------------------------------------]
+ * | Demo of engineering calculator (allowed operations: `sin`, `cos`, `abs`, `exp` etc) |
+ * ]-------------------------------------------------------------------------------------[
  *
  */
-
 
 /** Engineering calculator. Usage example #1 */
 $result = $Calculator->setOperand1(45)->setOperator('sin')->calculate();
 
-var_dump($result->getValue());
+print_r($result->getValue()."\n");
 
 /** Engineering calculator. Usage example #2 */
 $result = $Calculator
@@ -43,7 +41,7 @@ $result = $Calculator
     ->setOperator('sin')
     ->calculate();
 
-var_dump($result->getValue());
+print_r($result->getValue()."\n");
 
 
 /**
@@ -57,11 +55,15 @@ var_dump($result->getValue());
 /**
  * There are some more different ways how to pass operands. For example:
  *
- * - instead of using setOperand1() , setOperandN() methods we can work with dynamic arguments. As result we will get something like this
+ * - instead of using setOperand1() , setOperandN() methods we could work with dynamic arguments. As result we will get something like this
  *   `
  *     setOperands(...$operands)
  *  `
- * - to pass operands as array like [1, 23, 4] and using operator `+` to get 28
+ * - or to pass operands as array like [1, 23, 4] and using operator `+` to get 28
+ *
+ *  `
+ *      setOperands([1, 23, 4])
+ *  `
  *
  * - to implement some chain of operations
  *  `
