@@ -4,6 +4,8 @@ namespace app\src;
 
 use app\abstractions\AbstractBaseCalculator;
 use app\abstractions\AbstractEngineeringCalculator;
+use app\abstractions\AbstractSimpleCalculator;
+use app\exceptions\WrongOperatorException;
 
 /**
  * Class CalculatorManager
@@ -27,13 +29,13 @@ class CalculatorManager
     public function __construct()
     {
         $this->BaseCalculator = new SimpleCalculator(new Result());
-        $this->EngineeringCalculator = $engineeringCalculator;
-
+        $this->EngineeringCalculator = new EngineeringCalculator(new Result());
     }
 
     /**
      * @param $operator
      * @return AbstractBaseCalculator
+     * @throws WrongOperatorException
      */
     public function getCalculator($operator)
     {
@@ -44,7 +46,26 @@ class CalculatorManager
         if (in_array($operator, $this->EngineeringCalculator->getAllowedOperations())) {
             return $this->EngineeringCalculator;
         }
-
+        throw new WrongOperatorException("Wrong operator: ".$operator);
     }
+
+    /**
+     * @param AbstractBaseCalculator $Calculator
+     * @return bool
+     */
+    public function isSimpleCalculator(AbstractBaseCalculator $Calculator)
+    {
+        return is_a($Calculator, AbstractSimpleCalculator::class);
+    }
+
+    /**
+     * @param AbstractBaseCalculator $Calculator
+     * @return bool
+     */
+    public function isEngineeringCalculator(AbstractBaseCalculator $Calculator)
+    {
+        return is_a($Calculator, AbstractEngineeringCalculator::class);
+    }
+
 
 }

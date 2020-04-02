@@ -11,14 +11,21 @@ use app\interfaces\IResult;
  */
 abstract class AbstractEngineeringCalculator extends AbstractBaseCalculator implements IEngineeringOperations
 {
-    protected $allowedOperations = ['mod', 'exp'];
+    /**
+     * @var array
+     */
+    protected $allowedOperations = ['mod', 'exp', 'abs'];
 
     protected $operand;
 
-
+    /**
+     * @param $operand
+     * @return $this
+     */
     public function setOperand($operand)
     {
         $this->operand = $operand;
+        return $this;
     }
 
     /**

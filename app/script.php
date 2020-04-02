@@ -1,23 +1,21 @@
 <?php
 
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Reference;
-
+use app\builders\CalculatorBuilder;
+use app\interfaces\IResult;
 
 require_once 'vendor/autoload.php';
 
-$containerBuilder = new ContainerBuilder();
-$containerBuilder->register('calculator_manager', \app\src\CalculatorManager::class);
-
-$containerBuilder->register('calculator', \app\src\Calculator::class)
-    ->addArgument(new Reference('calculator_manager'));
-
-
 /** @var \app\src\Calculator $Calculator */
-$Calculator = $containerBuilder->get('calculator');
+$Calculator = CalculatorBuilder::build();
 
+/**
+ * @var IResult $result
+ */
 $result = $Calculator
-    ->setOperand1(1)
+    ->setOperator(13.00)
     ->setOperand2(2)
-    ->setOperator('+');
+    ->setOperator('abs')
+    ->calculate();
+
+var_dump($result->getValue());
 

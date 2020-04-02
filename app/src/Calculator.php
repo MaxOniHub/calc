@@ -3,6 +3,10 @@
 namespace app\src;
 
 use app\abstractions\AbstractBaseCalculator;
+use app\abstractions\AbstractEngineeringCalculator;
+use app\abstractions\AbstractSimpleCalculator;
+use app\exceptions\WrongOperatorException;
+use app\interfaces\IResult;
 
 /**
  * Class Calculator
@@ -20,6 +24,9 @@ class Calculator
      * @var CalculatorManager
      */
     private $CalculatorManager;
+
+    /** @var AbstractBaseCalculator $Calculator */
+    private $Calculator;
 
     /**
      * Calculator constructor.
@@ -60,24 +67,68 @@ class Calculator
         return $this;
     }
 
-    public function calculate()
+    /**
+     * @return AbstractBaseCalculator
+     */
+    public function getCalculator()
     {
-
-        return $this->CalculatorManager->getCalculator($this->operator);
-
+       return $this->Calculator;
     }
 
-    private function validateParameters()
+    /**
+     * @return IResult
+     */
+    public function calculate()
     {
+        try {
+            $this->Calculator = $this->CalculatorManager->getCalculator($this->operator);
+
+            if ($this->CalculatorManager->isSimpleCalculator($this->Calculator)) {
+                return $this->useSimpleCalculator($this->Calculator);
+            }
+
+            if ($this->CalculatorManager->isEngineeringCalculator($this->Calculator)) {
+                return $this->useEngineeringCalculator($this->Calculator);
+            }
+
+        } catch (WrongOperatorException $e) {
+
+        }
+
 
     }
 
     /**
-     * @return AbstractBaseCalculator
+     * @param AbstractBaseCalculator $Calculator
+     * @return IResult
      */
-    private function getCalculatorBasedOnOperator()
+    private function useSimpleCalculator(AbstractBaseCalculator $Calculator)
     {
-        return $this->CalculatorManager->getCalculator($this->operator);
+        /** @var AbstractSimpleCalculator $Calculator */
+        return $Calculator
+            ->setOperand1($this->operand1)
+            ->setOperand2($this->operand2)
+            ->setOperator($this->operator)
+            ->getResult();
+    }
+
+    /**
+     * @param AbstractBaseCalculator $Calculator
+     * @return IResult
+     */
+    private function useEngineeringCalculator(AbstractBaseCalculator $Calculator)
+    {
+        /** @var AbstractEngineeringCalculator $Calculator */
+        return $Calculator
+            ->setOperand($this->operand1)
+            ->setOperator($this->operator)
+            ->getResult();
+    }
+
+
+    private function validateParameters()
+    {
+
     }
 
 
