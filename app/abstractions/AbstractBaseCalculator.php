@@ -34,6 +34,21 @@ abstract class AbstractBaseCalculator implements IBaseCalculator
     }
 
     /**
+     * @return IResult
+     */
+    public function getResult(): IResult
+    {
+        $this->validate();
+
+        return $this->process();
+    }
+
+    /**
+     * @return IResult
+     */
+    abstract protected function process():IResult;
+
+    /**
      * @return array
      */
     public function getAllowedOperations(): array
@@ -58,4 +73,9 @@ abstract class AbstractBaseCalculator implements IBaseCalculator
     {
         return $this->operator;
     }
+
+    /**
+     * Custom validation rules for each type of calculator
+     */
+    abstract public function validate();
 }

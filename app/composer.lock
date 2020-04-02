@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c924f029eba127e74b18811cd07ada52",
+    "content-hash": "fa6ff421b4abb965095867f7a3e91c2e",
     "packages": [
         {
             "name": "psr/container",
@@ -260,6 +260,42 @@
                 "parser"
             ],
             "time": "2020-03-17T14:03:26+00:00"
+        },
+        {
+            "name": "codeception/assert-throws",
+            "version": "1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Codeception/AssertThrows.git",
+                "reference": "20517b8997d029f8571443eb80ea437260c1c3d5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Codeception/AssertThrows/zipball/20517b8997d029f8571443eb80ea437260c1c3d5",
+                "reference": "20517b8997d029f8571443eb80ea437260c1c3d5",
+                "shasum": ""
+            },
+            "require": {
+                "phpunit/phpunit": "^6.4|^7.0|^8.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Codeception\\": "./"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "davert",
+                    "email": "davert@codeception.com"
+                }
+            ],
+            "description": "Assert exception was thrown without stopping a test",
+            "time": "2019-08-15T13:29:46+00:00"
         },
         {
             "name": "codeception/codeception",

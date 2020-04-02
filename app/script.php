@@ -12,9 +12,12 @@ $Calculator = CalculatorBuilder::build();
  * @var IResult $result
  */
 $result = $Calculator
-    ->setOperator(13.00)
-    ->setOperand2(2)
-    ->setOperator('abs')
+    ->setOperand1(2)
+    ->setOperand2(100.23)
+
+
+    ->setOperator('-')
+
     ->calculate();
 
 var_dump($result->getValue());

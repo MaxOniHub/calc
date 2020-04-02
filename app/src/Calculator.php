@@ -6,6 +6,7 @@ use app\abstractions\AbstractBaseCalculator;
 use app\abstractions\AbstractEngineeringCalculator;
 use app\abstractions\AbstractSimpleCalculator;
 use app\exceptions\WrongOperatorException;
+use app\helpers\CalculatorParametersValidator;
 use app\interfaces\IResult;
 
 /**
@@ -28,13 +29,18 @@ class Calculator
     /** @var AbstractBaseCalculator $Calculator */
     private $Calculator;
 
+    /** @var CalculatorParametersValidator  */
+    private $Validator;
+
     /**
      * Calculator constructor.
      * @param CalculatorManager $calculatorManager
+     * @param CalculatorParametersValidator $validator
      */
-    public function __construct(CalculatorManager $calculatorManager)
+    public function __construct(CalculatorManager $calculatorManager, CalculatorParametersValidator $validator)
     {
         $this->CalculatorManager = $calculatorManager;
+        $this->Validator = $validator;
     }
 
     /**
@@ -77,24 +83,19 @@ class Calculator
 
     /**
      * @return IResult
+     * @throws WrongOperatorException
      */
     public function calculate()
     {
-        try {
-            $this->Calculator = $this->CalculatorManager->getCalculator($this->operator);
+        $this->Calculator = $this->CalculatorManager->getCalculator($this->operator);
 
-            if ($this->CalculatorManager->isSimpleCalculator($this->Calculator)) {
-                return $this->useSimpleCalculator($this->Calculator);
-            }
-
-            if ($this->CalculatorManager->isEngineeringCalculator($this->Calculator)) {
-                return $this->useEngineeringCalculator($this->Calculator);
-            }
-
-        } catch (WrongOperatorException $e) {
-
+        if ($this->CalculatorManager->isSimpleCalculator($this->Calculator)) {
+            return $this->useSimpleCalculator($this->Calculator);
         }
 
+        if ($this->CalculatorManager->isEngineeringCalculator($this->Calculator)) {
+            return $this->useEngineeringCalculator($this->Calculator);
+        }
 
     }
 
@@ -124,12 +125,5 @@ class Calculator
             ->setOperator($this->operator)
             ->getResult();
     }
-
-
-    private function validateParameters()
-    {
-
-    }
-
 
 }

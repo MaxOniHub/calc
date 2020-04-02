@@ -13,8 +13,9 @@ class SimpleCalculator extends AbstractSimpleCalculator
 {
     /**
      * @return IResult
+     * @throws \Exception
      */
-    public function getResult(): IResult
+    public function process(): IResult
     {
         switch ($this->operator)
         {
@@ -22,7 +23,7 @@ class SimpleCalculator extends AbstractSimpleCalculator
                 return $this->add($this->operand1, $this->operand2);
                 break;
             case '-':
-                return $this->divide($this->operand1, $this->operand2);
+                return $this->minus($this->operand1, $this->operand2);
                 break;
             case '*':
                 return $this->multiply($this->operand1, $this->operand2);
