@@ -10,4 +10,4 @@
 ## How to run tests
 ```vendor/bin/codecept run unit```
 
-### To review common architecture of the app please find the AbstractBaseCalculatorDiagram.png file in the root of the project
+### To review common architecture of the app please find the AbstractBaseCalculatorDiagram.png file in the project root
