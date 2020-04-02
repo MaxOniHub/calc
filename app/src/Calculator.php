@@ -43,10 +43,6 @@ class Calculator
         $this->Validator = $validator;
     }
 
-    /**
-     * @param $operand1
-     * @return $this
-     */
     public function setOperand1($operand1)
     {
         $this->operand1 = $operand1;
